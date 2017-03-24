@@ -3,6 +3,9 @@
 
 # ArangoDB VelocyPack Java Module Scala
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.arangodb/velocypack-module-scala/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.arangodb/velocypack-module-scala)
+
+
 Scala module for [Java VelocyPack](https://github.com/arangodb/java-velocypack).
 
 Added support for:

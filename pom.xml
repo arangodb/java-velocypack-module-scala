@@ -3,8 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.arangodb</groupId>
-	<artifactId>java-velocypack-module-scala</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<artifactId>velocypack-module-scala</artifactId>
+	<version>1.0.0</version>
 	<inceptionYear>2017</inceptionYear>
 	<packaging>jar</packaging>
 

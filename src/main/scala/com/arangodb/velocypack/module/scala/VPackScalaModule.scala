@@ -10,12 +10,12 @@ class VPackScalaModule extends VPackModule {
 
   def setup[C <: VPackSetupContext[C]](context: C): Unit = {
     context.registerDeserializer(classOf[Option[Any]], VPackScalaDeserializers.OPTION)
-    context.registerDeserializer(classOf[List[Any]], VPackScalaDeserializers.LIST)
-    context.registerDeserializer(classOf[Map[Any, Any]], VPackScalaDeserializers.MAP)
+    context.registerDeserializer(classOf[collection.List[Any]], VPackScalaDeserializers.LIST)
+    context.registerDeserializer(classOf[collection.Map[Any, Any]], VPackScalaDeserializers.MAP)
 
     context.registerSerializer(classOf[Option[Any]], VPackScalaSerializers.OPTION)
-    context.registerSerializer(classOf[List[Any]], VPackScalaSerializers.LIST)
-    context.registerSerializer(classOf[Map[Any, Any]], VPackScalaSerializers.MAP)
+    context.registerSerializer(classOf[collection.List[Any]], VPackScalaSerializers.LIST)
+    context.registerSerializer(classOf[collection.Map[Any, Any]], VPackScalaSerializers.MAP)
     context.registerEnclosingSerializer(classOf[Map[Any, Any]], VPackScalaSerializers.MAP)
   }
 

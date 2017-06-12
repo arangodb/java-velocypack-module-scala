@@ -9,7 +9,7 @@ import com.arangodb.velocypack.VPackInstanceCreator
 class VPackScalaModule extends VPackModule {
 
   def setup[C <: VPackSetupContext[C]](context: C): Unit = {
-    context.registerDeserializer(classOf[Option[Any]], VPackScalaDeserializers.OPTION)
+    context.registerDeserializer(classOf[Option[Any]], VPackScalaDeserializers.OPTION, true)
     context.registerDeserializer(classOf[List[Any]], VPackScalaDeserializers.LIST)
     context.registerDeserializer(classOf[Map[Any, Any]], VPackScalaDeserializers.MAP)
 

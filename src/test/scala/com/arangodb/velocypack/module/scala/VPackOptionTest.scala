@@ -11,8 +11,8 @@ import com.arangodb.velocypack.VPackBuilder
 import com.arangodb.velocypack.ValueType
 
 case class OptionTestEntity(@BeanProperty var s: Option[String] = Option.empty,
-                               @BeanProperty var i: Option[Int] = Option.empty,
-                               @BeanProperty var o: Option[OptionTestEntity] = Option.empty) {
+                            @BeanProperty var i: Option[Int] = Option.empty,
+                            @BeanProperty var o: Option[OptionTestEntity] = Option.empty) {
   def this() = this(s = Option.empty)
 }
 
@@ -47,5 +47,24 @@ class VPackOptionTest extends FunSuite with Matchers {
     entity.i.isDefined should be(true)
     entity.i.get should be(69)
     entity.o.isDefined should be(true)
+  }
+
+  test("deserialize null") {
+    val builder = new VPackBuilder()
+    builder add ValueType.OBJECT
+    builder add ("s", ValueType.NULL)
+    builder add ("i", ValueType.NULL)
+    builder add ("o", ValueType.NULL)
+    builder close
+
+    val vp = new VPack.Builder().registerModule(new VPackScalaModule).build()
+    val entity: OptionTestEntity = vp.deserialize(builder.slice, classOf[OptionTestEntity])
+    entity should not be null
+    entity.s should not be null
+    entity.s.isDefined should be(false)
+    entity.i should not be null
+    entity.i.isDefined should be(false)
+    entity.o should not be null
+    entity.o.isDefined should be(false)
   }
 }

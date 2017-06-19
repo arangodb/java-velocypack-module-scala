@@ -4,7 +4,7 @@
 
 	<groupId>com.arangodb</groupId>
 	<artifactId>velocypack-module-scala</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 	<inceptionYear>2017</inceptionYear>
 	<packaging>jar</packaging>
 
@@ -22,7 +22,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<arangodb.velocypack.version>1.0.8-SNAPSHOT</arangodb.velocypack.version>
+		<arangodb.velocypack.version>1.0.8</arangodb.velocypack.version>
 	</properties>
 
 	<developers>

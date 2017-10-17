@@ -55,6 +55,7 @@ class VPackListTest extends FunSuite with Matchers {
     entity.i(0) should be(69)
     entity.o.size should be(1)
     entity.o(0) should not be null
+    entity.o(0) shouldBe a [ListTestEntity]
   }
 
 }

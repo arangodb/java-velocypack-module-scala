@@ -23,9 +23,14 @@ object VPackScalaDeserializers {
     }
   }
 
-  val LIST = new VPackDeserializer[List[Any]] {
+  val LIST = new VPackDeserializerParameterizedType[List[Any]] {
     def deserialize(parent: VPackSlice, vpack: VPackSlice, context: VPackDeserializationContext): List[Any] =
-      context.deserialize(vpack, classOf[java.util.List[Any]]).toList
+      throw new UnsupportedOperationException
+
+    def deserialize(parent: VPackSlice, vpack: VPackSlice, context: VPackDeserializationContext, t: ParameterizedType): List[Any] = {
+      val clazz = t.getActualTypeArguments()(0).asInstanceOf[Class[Any]]
+      vpack.arrayIterator().map { slice => context.deserialize(slice, clazz) }.toList
+    }
   }
 
   val MAP = new VPackDeserializer[Map[Any, Any]] {

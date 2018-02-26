@@ -12,6 +12,8 @@ Added support for:
 * scala.Option
 * scala.collection.immutable.List
 * scala.collection.immutable.Map
+* scala.math.BigInt
+* scala.math.BigDecimal
 
 
 ## Maven
@@ -23,7 +25,7 @@ To add the dependency to your project with maven, add the following code to your
   <dependency>
     <groupId>com.arangodb</groupId>
     <artifactId>velocypack-module-scala</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.2</version>
   </dependency>
 </dependencies>
 ```

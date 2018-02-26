@@ -38,4 +38,14 @@ object VPackScalaDeserializers {
       context.deserialize(vpack, classOf[java.util.Map[Any, Any]]).toMap
   }
 
+  val BIG_INT = new VPackDeserializer[BigInt] {
+    def deserialize(parent: VPackSlice, vpack: VPackSlice, context: VPackDeserializationContext): BigInt =
+      BigInt.javaBigInteger2bigInt(context.deserialize(vpack, classOf[java.math.BigInteger]))
+  }
+
+  val BIG_DECIMAL = new VPackDeserializer[BigDecimal] {
+    def deserialize(parent: VPackSlice, vpack: VPackSlice, context: VPackDeserializationContext): BigDecimal =
+      BigDecimal.javaBigDecimal2bigDecimal(context.deserialize(vpack, classOf[java.math.BigDecimal]))
+  }
+
 }

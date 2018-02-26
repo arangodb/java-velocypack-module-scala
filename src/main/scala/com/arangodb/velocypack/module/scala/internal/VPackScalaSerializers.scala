@@ -25,4 +25,13 @@ object VPackScalaSerializers {
       context.serialize(builder, attribute, mapAsJavaMap(value))
   }
 
+  val BIG_INT = new VPackSerializer[BigInt] {
+    def serialize(builder: VPackBuilder, attribute: String, value: BigInt, context: VPackSerializationContext): Unit =
+      context.serialize(builder, attribute, value.bigInteger)
+  }
+
+  val BIG_DECIMAL = new VPackSerializer[BigDecimal] {
+    def serialize(builder: VPackBuilder, attribute: String, value: BigDecimal, context: VPackSerializationContext): Unit =
+      context.serialize(builder, attribute, value.bigDecimal)
+  }
 }

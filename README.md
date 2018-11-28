@@ -22,7 +22,7 @@ To add the dependency to your project with maven, add the following code to your
 <dependencies>
   <dependency>
     <groupId>com.arangodb</groupId>
-    <artifactId>velocypack-module-scala</artifactId>
+    <artifactId>velocypack-module-scala_2.11</artifactId>
     <version>1.0.2</version>
   </dependency>
 </dependencies>

@@ -13,6 +13,13 @@ object VPackScalaSerializers {
       context.serialize(builder, attribute, value.orNull)
   }
 
+  val SEQ = new VPackSerializer[Seq[Any]] {
+    def serialize(builder: VPackBuilder, attribute: String, value: Seq[Any], context: VPackSerializationContext): Unit = {
+      val list: _root_.java.util.List[Any] = ListBuffer(value: _*)
+      context.serialize(builder, attribute, list)
+    }
+  }
+
   val LIST = new VPackSerializer[List[Any]] {
     def serialize(builder: VPackBuilder, attribute: String, value: List[Any], context: VPackSerializationContext): Unit = {
       val list: _root_.java.util.List[Any] = ListBuffer(value: _*)

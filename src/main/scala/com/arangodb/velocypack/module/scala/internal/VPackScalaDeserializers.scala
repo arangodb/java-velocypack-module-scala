@@ -15,11 +15,21 @@ object VPackScalaDeserializers {
       throw new UnsupportedOperationException
 
     def deserialize(parent: VPackSlice, vpack: VPackSlice, context: VPackDeserializationContext, t: ParameterizedType): Option[Any] = {
-      val value = context.deserialize(vpack, t.getActualTypeArguments()(0).asInstanceOf[Class[Any]])
+      val value = context.deserialize[Any](vpack, t.getActualTypeArguments()(0))
       value match {
         case null => None
         case _    => Some(value)
       }
+    }
+  }
+
+  val SEQ = new VPackDeserializerParameterizedType[Seq[Any]] {
+    def deserialize(parent: VPackSlice, vpack: VPackSlice, context: VPackDeserializationContext): Seq[Any] =
+      throw new UnsupportedOperationException
+
+    def deserialize(parent: VPackSlice, vpack: VPackSlice, context: VPackDeserializationContext, t: ParameterizedType): Seq[Any] = {
+      val clazz = t.getActualTypeArguments()(0).asInstanceOf[Class[Any]]
+      vpack.arrayIterator().map { slice: VPackSlice => context.deserialize[Any](slice, clazz) }.toSeq
     }
   }
 
@@ -29,13 +39,13 @@ object VPackScalaDeserializers {
 
     def deserialize(parent: VPackSlice, vpack: VPackSlice, context: VPackDeserializationContext, t: ParameterizedType): List[Any] = {
       val clazz = t.getActualTypeArguments()(0).asInstanceOf[Class[Any]]
-      vpack.arrayIterator().map { slice => context.deserialize(slice, clazz) }.toList
+      vpack.arrayIterator().map { slice: VPackSlice => context.deserialize[Any](slice, clazz) }.toList
     }
   }
 
   val MAP = new VPackDeserializer[Map[Any, Any]] {
     def deserialize(parent: VPackSlice, vpack: VPackSlice, context: VPackDeserializationContext): Map[Any, Any] =
-      context.deserialize(vpack, classOf[java.util.Map[Any, Any]]).toMap
+      context.deserialize[java.util.Map[Any, Any]](vpack, classOf[java.util.Map[Any, Any]]).toMap
   }
 
   val BIG_INT = new VPackDeserializer[BigInt] {

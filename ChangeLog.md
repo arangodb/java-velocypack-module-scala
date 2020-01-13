@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+## [1.1.0] - 2020-01-13
+
+- added support for `scala.collection.Seq`
+- updated velocypack version 2.1.0
+- changed velocypack dependency scope to `provided`
+
 ## [1.0.3] - 2018-08-19
 
 - added java-velocypack version 1.4.2

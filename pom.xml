@@ -22,7 +22,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<arangodb.velocypack.version>1.4.2</arangodb.velocypack.version>
+		<arangodb.velocypack.version>2.1.0</arangodb.velocypack.version>
 	</properties>
 
 	<developers>
@@ -68,6 +68,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
@@ -117,6 +118,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
 				<executions>
 					<execution>
 						<id>empty-javadoc-jar</id>
@@ -180,6 +182,7 @@
 		<dependency>
 			<groupId>com.arangodb</groupId>
 			<artifactId>velocypack</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.scalatest</groupId>

@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.arangodb</groupId>
-	<artifactId>velocypack-module-scala</artifactId>
+	<artifactId>velocypack-module-scala_2.11</artifactId>
 	<version>1.1.0</version>
 	<inceptionYear>2017</inceptionYear>
 	<packaging>jar</packaging>
@@ -23,7 +23,42 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<arangodb.velocypack.version>2.1.0</arangodb.velocypack.version>
+
+		<!-- Scala cross-build properties -->
+
+		<default.scala.binary.version>2.11</default.scala.binary.version>
+		<default.scala.version>${scala_2.11.version}</default.scala.version>
+
+		<scala_2.11.version>2.11.12</scala_2.11.version>
+		<scala_2.12.version>2.12.10</scala_2.12.version>
+
+		<!--
+		===================================================================
+		DO NOT CHANGE MANUALLY!
+		These properties are controlled by `scala-cross-build-maven-plugin`
+		See: https://github.com/wajda/scala-cross-build-maven-plugin
+		===================================================================
+        -->
+		<scala.version>2.11.12</scala.version>
+		<scala.binary.version>2.11</scala.binary.version>
 	</properties>
+
+	<profiles>
+		<profile>
+			<id>scala-2.11</id>
+			<properties>
+				<scala.binary.version>2.11</scala.binary.version>
+				<scala.version>${scala_2.11.version}</scala.version>
+			</properties>
+		</profile>
+		<profile>
+			<id>scala-2.12</id>
+			<properties>
+				<scala.binary.version>2.12</scala.binary.version>
+				<scala.version>${scala_2.12.version}</scala.version>
+			</properties>
+		</profile>
+	</profiles>
 
 	<developers>
 		<developer>
@@ -54,6 +89,15 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>com.github.wajda</groupId>
+				<artifactId>scala-cross-build-maven-plugin</artifactId>
+				<version>0.2.1</version>
+				<configuration>
+					<defaultScalaBinaryVersion>${default.scala.binary.version}</defaultScalaBinaryVersion>
+					<defaultScalaVersion>${default.scala.version}</defaultScalaVersion>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
 				<artifactId>nexus-staging-maven-plugin</artifactId>
 				<version>1.6.5</version>
@@ -80,9 +124,6 @@
 				<groupId>com.google.code.sbt-compiler-maven-plugin</groupId>
 				<artifactId>sbt-compiler-maven-plugin</artifactId>
 				<version>1.0.0-beta9</version>
-				<configuration>
-					<scalaVersion>2.11.8</scalaVersion>
-				</configuration>
 				<executions>
 					<execution>
 						<id>default-sbt-compile</id>
@@ -186,7 +227,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.scalatest</groupId>
-			<artifactId>scalatest_2.11</artifactId>
+			<artifactId>scalatest_${scala.binary.version}</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -210,7 +251,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.scalatest</groupId>
-				<artifactId>scalatest_2.11</artifactId>
+				<artifactId>scalatest_${scala.binary.version}</artifactId>
 				<version>3.0.0</version>
 			</dependency>
 			<dependency>

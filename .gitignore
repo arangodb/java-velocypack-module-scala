@@ -26,3 +26,6 @@ project/plugins/project/
 /target
 /.idea
 /*.iml
+
+# scala-cross-build-maven-plugin specific
+pom.xml.bkp

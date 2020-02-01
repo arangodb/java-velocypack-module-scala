@@ -1,11 +1,11 @@
 package com.arangodb.velocypack.module.scala
 
-import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import com.arangodb.velocypack.module.scala.VPackMapTest._
+import com.arangodb.velocypack.{VPack, VPackBuilder, ValueType}
+import org.scalatest.{FunSuite, Matchers}
+
 import scala.beans.BeanProperty
-import com.arangodb.velocypack.VPack
-import com.arangodb.velocypack.VPackBuilder
-import com.arangodb.velocypack.ValueType
+import scala.collection.immutable._
 
 case class MapTestEntity(@BeanProperty var m: Map[String, Any] = Map()) {
   def this() = this(Map())
@@ -47,6 +47,61 @@ class VPackMapTest extends FunSuite with Matchers {
     vpack.get("o").get("ss").getAsString should be("hello world")
   }
 
+
+  test("serialize different kinds of nested maps") {
+    val vp = new VPack.Builder().registerModule(new VPackScalaModule).build()
+
+    val entity = MapTestEntity(m =
+      HashTrieMap("seq" -> Seq(
+        HashTrieMap("foo" -> 42),
+        SortedMap("foo" -> 42),
+        ListMap("foo" -> 42),
+        HashMap("foo" -> 42),
+        Map("foo" -> 42),
+        ListMap.empty,
+        Map.empty
+      )))
+
+    val vpack = vp.serialize(entity)
+    vpack should not be null
+    vpack.isObject should be(true)
+    vpack.size should be(1)
+    vpack.get("m").isObject should be(true)
+    vpack.get("m").size should be(1)
+    vpack.get("m").get("seq").isArray should be(true)
+
+    vpack.get("m").get("seq").get(0).isObject should be(true)
+    vpack.get("m").get("seq").get(0).size should be(1)
+    vpack.get("m").get("seq").get(0).get("foo").isInt should be(true)
+    vpack.get("m").get("seq").get(0).get("foo").getAsInt should be(42)
+
+    vpack.get("m").get("seq").get(1).isObject should be(true)
+    vpack.get("m").get("seq").get(1).size should be(1)
+    vpack.get("m").get("seq").get(1).get("foo").isInt should be(true)
+    vpack.get("m").get("seq").get(1).get("foo").getAsInt should be(42)
+
+    vpack.get("m").get("seq").get(2).isObject should be(true)
+    vpack.get("m").get("seq").get(2).size should be(1)
+    vpack.get("m").get("seq").get(2).get("foo").isInt should be(true)
+    vpack.get("m").get("seq").get(2).get("foo").getAsInt should be(42)
+
+    vpack.get("m").get("seq").get(3).isObject should be(true)
+    vpack.get("m").get("seq").get(3).size should be(1)
+    vpack.get("m").get("seq").get(3).get("foo").isInt should be(true)
+    vpack.get("m").get("seq").get(3).get("foo").getAsInt should be(42)
+
+    vpack.get("m").get("seq").get(4).isObject should be(true)
+    vpack.get("m").get("seq").get(4).size should be(1)
+    vpack.get("m").get("seq").get(4).get("foo").isInt should be(true)
+    vpack.get("m").get("seq").get(4).get("foo").getAsInt should be(42)
+
+    vpack.get("m").get("seq").get(5).isObject should be(true)
+    vpack.get("m").get("seq").get(5).size should be(0)
+
+    vpack.get("m").get("seq").get(5).isObject should be(true)
+    vpack.get("m").get("seq").get(5).size should be(0)
+  }
+
   test("deserialize map") {
     val builder = new VPackBuilder
     builder add ValueType.OBJECT
@@ -60,10 +115,15 @@ class VPackMapTest extends FunSuite with Matchers {
     val entity: MapTestEntity = vp.deserialize(builder.slice, classOf[MapTestEntity])
     entity should not be null
     entity.m.size should be(2)
-    entity.m.get("s").isDefined should be(true)
-    entity.m.get("s").get should be("hello world")
-    entity.m.get("i").isDefined should be(true)
-    entity.m.get("i").get should be(69)
+    entity.m.get("s") should be(Some("hello world"))
+    entity.m.get("i") should be(Some(69))
+  }
+}
+
+object VPackMapTest {
+
+  object HashTrieMap {
+    def apply[A, B](pairs: (A, B)*): Map[A, B] = new HashMap.HashTrieMap(0, Array(HashMap(pairs: _*)), pairs.size)
   }
 
 }

@@ -20,13 +20,6 @@ object VPackScalaSerializers {
     }
   }
 
-  val LIST = new VPackSerializer[List[Any]] {
-    def serialize(builder: VPackBuilder, attribute: String, value: List[Any], context: VPackSerializationContext): Unit = {
-      val list: _root_.java.util.List[Any] = ListBuffer(value: _*)
-      context.serialize(builder, attribute, list)
-    }
-  }
-
   val MAP = new VPackSerializer[Map[Any, Any]] {
     def serialize(builder: VPackBuilder, attribute: String, value: Map[Any, Any], context: VPackSerializationContext): Unit =
       context.serialize(builder, attribute, mapAsJavaMap(value))

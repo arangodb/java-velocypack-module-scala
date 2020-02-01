@@ -6,7 +6,6 @@ import com.arangodb.velocypack.VPackSlice
 import com.arangodb.velocypack.VPackDeserializerParameterizedType
 import java.lang.reflect.ParameterizedType
 import scala.collection.JavaConversions._
-import scala.collection.JavaConverters._
 
 object VPackScalaDeserializers {
 
@@ -23,16 +22,6 @@ object VPackScalaDeserializers {
     }
   }
 
-  val SEQ = new VPackDeserializerParameterizedType[Seq[Any]] {
-    def deserialize(parent: VPackSlice, vpack: VPackSlice, context: VPackDeserializationContext): Seq[Any] =
-      throw new UnsupportedOperationException
-
-    def deserialize(parent: VPackSlice, vpack: VPackSlice, context: VPackDeserializationContext, t: ParameterizedType): Seq[Any] = {
-      val clazz = t.getActualTypeArguments()(0).asInstanceOf[Class[Any]]
-      vpack.arrayIterator().map { slice: VPackSlice => context.deserialize[Any](slice, clazz) }.toSeq
-    }
-  }
-
   val LIST = new VPackDeserializerParameterizedType[List[Any]] {
     def deserialize(parent: VPackSlice, vpack: VPackSlice, context: VPackDeserializationContext): List[Any] =
       throw new UnsupportedOperationException
@@ -40,6 +29,16 @@ object VPackScalaDeserializers {
     def deserialize(parent: VPackSlice, vpack: VPackSlice, context: VPackDeserializationContext, t: ParameterizedType): List[Any] = {
       val clazz = t.getActualTypeArguments()(0).asInstanceOf[Class[Any]]
       vpack.arrayIterator().map { slice: VPackSlice => context.deserialize[Any](slice, clazz) }.toList
+    }
+  }
+
+  val VECTOR = new VPackDeserializerParameterizedType[Vector[Any]] {
+    def deserialize(parent: VPackSlice, vpack: VPackSlice, context: VPackDeserializationContext): Vector[Any] =
+      throw new UnsupportedOperationException
+
+    def deserialize(parent: VPackSlice, vpack: VPackSlice, context: VPackDeserializationContext, t: ParameterizedType): Vector[Any] = {
+      val clazz = t.getActualTypeArguments()(0).asInstanceOf[Class[Any]]
+      vpack.arrayIterator().map { slice: VPackSlice => context.deserialize[Any](slice, clazz) }.toVector
     }
   }
 

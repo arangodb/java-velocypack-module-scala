@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [1.2.0] - 2020-02-03
 
+- support for scala 2.11 and 2.12
 - nested collections support
 - enhanced map support
 

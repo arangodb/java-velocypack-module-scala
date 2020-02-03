@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+## [1.2.0] - 2020-02-03
+
+- nested collections support
+- enhanced map support
+
 ## [1.1.0] - 2020-01-13
 
 - added support for `scala.collection.Seq`

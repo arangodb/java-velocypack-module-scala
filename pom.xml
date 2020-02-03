@@ -22,7 +22,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<arangodb.velocypack.version>2.1.0</arangodb.velocypack.version>
+		<arangodb.velocypack.version>2.1.1</arangodb.velocypack.version>
 	</properties>
 
 	<developers>

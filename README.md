@@ -19,24 +19,19 @@ Added support for:
 To add the dependency to your project with maven, add the following code to your pom.xml:
 
 ```XML
-<dependencies>
+<!-- Scala 2.11 -->
   <dependency>
     <groupId>com.arangodb</groupId>
-    <artifactId>velocypack-module-scala</artifactId>
-    <version>1.0.2</version>
+    <artifactId>velocypack-module-scala_2.11</artifactId>
+    <version>1.2.0</version>
   </dependency>
-</dependencies>
-```
 
-If you want to test with a snapshot version (e.g. 1.0.0-SNAPSHOT), add the staging repository of oss.sonatype.org to your pom.xml:
-
-```XML
-<repositories>
-  <repository>
-    <id>arangodb-snapshots</id>
-    <url>https://oss.sonatype.org/content/groups/staging</url>
-  </repository>
-</repositories>
+<!-- Scala 2.12 -->
+  <dependency>
+    <groupId>com.arangodb</groupId>
+    <artifactId>velocypack-module-scala_2.12</artifactId>
+    <version>1.2.0</version>
+  </dependency>
 ```
 
 ## Compile

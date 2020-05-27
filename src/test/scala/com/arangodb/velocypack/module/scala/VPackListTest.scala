@@ -1,7 +1,7 @@
 package com.arangodb.velocypack.module.scala
 
-import org.scalatest.Matchers
-import org.scalatest.FunSuite
+import org.scalatest.funsuite._
+import org.scalatest.matchers._
 import scala.beans.BeanProperty
 import com.arangodb.velocypack.VPack
 import com.arangodb.velocypack.VPackBuilder
@@ -11,7 +11,7 @@ case class ListTestEntity(@BeanProperty var s: List[String] = List(), @BeanPrope
   def this() = this(s = List())
 }
 
-class VPackListTest extends FunSuite with Matchers {
+class VPackListTest extends AnyFunSuite with should.Matchers {
 
   test("serialize list") {
     val vp = new VPack.Builder().registerModule(new VPackScalaModule).build()
@@ -33,15 +33,15 @@ class VPackListTest extends FunSuite with Matchers {
 
   test("deserialize list") {
     val builder = new VPackBuilder()
-    builder add ValueType.OBJECT
-    builder add ("s", ValueType.ARRAY)
-    builder add "hello world"
+    builder.add(ValueType.OBJECT)
+    builder.add("s", ValueType.ARRAY)
+    builder.add("hello world")
     builder.close
-    builder add ("i", ValueType.ARRAY)
-    builder add new Integer(69)
+    builder.add ("i", ValueType.ARRAY)
+    builder.add(Integer.valueOf(69))
     builder.close
-    builder add ("o", ValueType.ARRAY)
-    builder add ValueType.OBJECT
+    builder.add ("o", ValueType.ARRAY)
+    builder.add(ValueType.OBJECT)
     builder.close
     builder.close
     builder.close

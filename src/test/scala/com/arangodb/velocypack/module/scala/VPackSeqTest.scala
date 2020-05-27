@@ -3,7 +3,9 @@ package com.arangodb.velocypack.module.scala
 import java.{util => ju}
 
 import com.arangodb.velocypack.{VPack, VPackBuilder, ValueType}
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite._
+import org.scalatest.matchers._
+
 
 import scala.beans.BeanProperty
 
@@ -15,7 +17,7 @@ case class WrappedSeqTestEntity(map: Map[String, Any], seq: Seq[Any], opt: Optio
   def this() = this(Map.empty, Nil, None)
 }
 
-class VPackSeqTest extends FunSuite with Matchers {
+class VPackSeqTest extends AnyFunSuite with should.Matchers {
 
   test("serialize seq") {
     val vp = new VPack.Builder().registerModule(new VPackScalaModule).build()

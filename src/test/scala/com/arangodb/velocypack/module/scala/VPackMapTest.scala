@@ -62,10 +62,10 @@ class VPackMapTest extends AnyFunSuite with should.Matchers {
           ListMap.empty,
           Map.empty
         ),
-        "seq2"->Seq(Map("foo"->42)), // Map.Map1
-        "seq3"->Seq(Map("foo"->42, "foo2"->42)), // Map.Map2
-        "seq4"->Seq(Map("foo"->42, "foo2"->42, "foo3"->42)), // Map.Map3
-        "seq5"->Seq(Map("foo"->42, "foo2"->42, "foo3"->42, "foo4"->42)), // Map.Map4
+        "seq2" -> Seq(Map("foo" -> 42)), // Map.Map1
+        "seq3" -> Seq(Map("foo" -> 42, "foo2" -> 42)), // Map.Map2
+        "seq4" -> Seq(Map("foo" -> 42, "foo2" -> 42, "foo3" -> 42)), // Map.Map3
+        "seq5" -> Seq(Map("foo" -> 42, "foo2" -> 42, "foo3" -> 42, "foo4" -> 42)), // Map.Map4
       ))
 
     val vpack = vp.serialize(entity)

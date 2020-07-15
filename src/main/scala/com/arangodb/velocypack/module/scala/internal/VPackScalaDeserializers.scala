@@ -5,7 +5,6 @@ import com.arangodb.velocypack.VPackDeserializationContext
 import com.arangodb.velocypack.VPackSlice
 import com.arangodb.velocypack.VPackDeserializerParameterizedType
 import java.lang.reflect.ParameterizedType
-import scala.collection.compat._
 import scala.jdk.CollectionConverters._
 
 object VPackScalaDeserializers {

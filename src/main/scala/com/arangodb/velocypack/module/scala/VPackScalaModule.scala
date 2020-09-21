@@ -29,16 +29,19 @@ class VPackScalaModule extends VPackModule {
       classOf[List[Any]],
       classOf[Vector[Any]],
       classOf[Seq[Any]],
-      Seq(Unit).getClass,
+      Seq(()).getClass,
       Seq.empty.getClass,
       Nil.getClass
     ).foreach(context.registerSerializer(_, VPackScalaSerializers.SEQ))
 
     Set(
-      classOf[HashMap.HashMap1[_, _]],
-      classOf[HashMap.HashTrieMap[_, _]],
+      classOf[Map.Map1[_, _]],
+      classOf[Map.Map2[_, _]],
+      classOf[Map.Map3[_, _]],
+      classOf[Map.Map4[_, _]],
+      classOf[HashMap[_, _]],
       classOf[TreeMap[_, _]],
-      ListMap(Unit -> Unit).getClass,
+      ListMap(() -> ()).getClass,
       classOf[Map[_, _]]
     ).foreach(context.registerSerializer(_, VPackScalaSerializers.MAP))
 

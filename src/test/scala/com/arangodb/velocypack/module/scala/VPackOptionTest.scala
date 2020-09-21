@@ -2,9 +2,8 @@ package com.arangodb.velocypack.module.scala
 
 import scala.beans.BeanProperty
 
-import org.scalatest.Finders
-import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.funsuite._
+import org.scalatest.matchers._
 
 import com.arangodb.velocypack.VPack
 import com.arangodb.velocypack.VPackBuilder
@@ -16,7 +15,7 @@ case class OptionTestEntity(@BeanProperty var s: Option[String] = Option.empty,
   def this() = this(s = Option.empty)
 }
 
-class VPackOptionTest extends FunSuite with Matchers {
+class VPackOptionTest extends AnyFunSuite with should.Matchers {
 
   test("serialize Option") {
     val vp = new VPack.Builder().registerModule(new VPackScalaModule).build()
@@ -51,11 +50,11 @@ class VPackOptionTest extends FunSuite with Matchers {
 
   test("deserialize null") {
     val builder = new VPackBuilder()
-    builder add ValueType.OBJECT
-    builder add ("s", ValueType.NULL)
-    builder add ("i", ValueType.NULL)
-    builder add ("o", ValueType.NULL)
-    builder close
+    builder.add(ValueType.OBJECT)
+    builder.add("s", ValueType.NULL)
+    builder.add("i", ValueType.NULL)
+    builder.add("o", ValueType.NULL)
+    builder.close
 
     val vp = new VPack.Builder().registerModule(new VPackScalaModule).build()
     val entity: OptionTestEntity = vp.deserialize(builder.slice, classOf[OptionTestEntity])

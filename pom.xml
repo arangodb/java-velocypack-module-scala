@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.arangodb</groupId>
-	<artifactId>velocypack-module-scala_2.12</artifactId>
+	<artifactId>velocypack-module-scala_2.13</artifactId>
 	<version>1.2.0</version>
 	<inceptionYear>2017</inceptionYear>
 	<packaging>jar</packaging>
@@ -80,7 +80,7 @@
 				<artifactId>sbt-compiler-maven-plugin</artifactId>
 				<version>1.0.0</version>
 				<configuration>
-					<scalaVersion>2.12.12</scalaVersion>
+					<scalaVersion>2.13.1</scalaVersion>
 				</configuration>
 				<executions>
 					<execution>
@@ -185,7 +185,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.scalatest</groupId>
-			<artifactId>scalatest_2.12</artifactId>
+			<artifactId>scalatest_2.13</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -209,8 +209,8 @@
 			</dependency>
 			<dependency>
 				<groupId>org.scalatest</groupId>
-				<artifactId>scalatest_2.12</artifactId>
-				<version>3.0.0</version>
+				<artifactId>scalatest_2.13</artifactId>
+				<version>3.2.0</version>
 			</dependency>
 			<dependency>
 				<groupId>junit</groupId>

@@ -6,11 +6,13 @@ on:
       - master
       - release/velocypack-module-scala_2.11
       - release/velocypack-module-scala_2.12
+      - release/velocypack-module-scala_2.13
   push:
     branches:
       - master
       - release/velocypack-module-scala_2.11
       - release/velocypack-module-scala_2.12
+      - release/velocypack-module-scala_2.13
 
 jobs:
 
@@ -24,7 +26,6 @@ jobs:
         java-version:
           - 8
           - 11
-          - 14
 
     steps:
       - uses: actions/checkout@v1

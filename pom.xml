@@ -22,7 +22,6 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<arangodb.velocypack.version>2.1.1</arangodb.velocypack.version>
 	</properties>
 
 	<developers>
@@ -206,7 +205,7 @@
 			<dependency>
 				<groupId>com.arangodb</groupId>
 				<artifactId>velocypack</artifactId>
-				<version>${arangodb.velocypack.version}</version>
+				<version>2.4.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.scalatest</groupId>

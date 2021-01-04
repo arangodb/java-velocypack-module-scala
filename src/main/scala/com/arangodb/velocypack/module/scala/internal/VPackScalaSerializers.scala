@@ -4,7 +4,8 @@ import com.arangodb.velocypack.VPackSerializer
 import com.arangodb.velocypack.VPackSerializationContext
 import com.arangodb.velocypack.VPackBuilder
 import scala.collection.mutable.ListBuffer
-import scala.collection.JavaConversions._
+import scala.collection.JavaConverters._
+import scala.collection.mutable
 
 object VPackScalaSerializers {
 
@@ -15,14 +16,19 @@ object VPackScalaSerializers {
 
   val SEQ = new VPackSerializer[Seq[Any]] {
     def serialize(builder: VPackBuilder, attribute: String, value: Seq[Any], context: VPackSerializationContext): Unit = {
-      val list: _root_.java.util.List[Any] = ListBuffer(value: _*)
+      val list: _root_.java.util.List[Any] = ListBuffer(value: _*).asJava
       context.serialize(builder, attribute, list)
     }
   }
 
-  val MAP = new VPackSerializer[Map[Any, Any]] {
+  val MAP_IMMUTABLE = new VPackSerializer[Map[Any, Any]] {
     def serialize(builder: VPackBuilder, attribute: String, value: Map[Any, Any], context: VPackSerializationContext): Unit =
-      context.serialize(builder, attribute, mapAsJavaMap(value))
+      context.serialize(builder, attribute, value.asJava)
+  }
+
+  val MAP_MUTABLE = new VPackSerializer[mutable.Map[Any, Any]] {
+    def serialize(builder: VPackBuilder, attribute: String, value: mutable.Map[Any, Any], context: VPackSerializationContext): Unit =
+      context.serialize(builder, attribute, value.asJava)
   }
 
   val BIG_INT = new VPackSerializer[BigInt] {

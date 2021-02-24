@@ -5,6 +5,8 @@ import com.arangodb.velocypack.VPackSetupContext
 import com.arangodb.velocypack.module.scala.internal.VPackScalaSerializers
 import com.arangodb.velocypack.module.scala.internal.VPackScalaDeserializers
 
+import scala.collection.{MapLike, mutable}
+import scala.collection.concurrent.TrieMap
 import scala.collection.immutable.{HashMap, ListMap, TreeMap}
 
 class VPackScalaModule extends VPackModule {
@@ -25,28 +27,43 @@ class VPackScalaModule extends VPackModule {
 
     // serializers
 
-    Set(
+    Set[Class[_ <: Seq[_]]](
       classOf[List[Any]],
       classOf[Vector[Any]],
       classOf[Seq[Any]],
-      Seq(Unit).getClass,
-      Seq.empty.getClass,
+      Seq(()).getClass,
+      Seq.empty[Any].getClass,
       Nil.getClass
     ).foreach(context.registerSerializer(_, VPackScalaSerializers.SEQ))
 
-    Set(
+    Set[Class[_ <: Map[_, _]]](
+      classOf[Map.Map1[_, _]],
+      classOf[Map.Map2[_, _]],
+      classOf[Map.Map3[_, _]],
+      classOf[Map.Map4[_, _]],
+      classOf[HashMap[_, _]],
       classOf[HashMap.HashMap1[_, _]],
       classOf[HashMap.HashTrieMap[_, _]],
       classOf[TreeMap[_, _]],
-      ListMap(Unit -> Unit).getClass,
-      classOf[Map[_, _]]
-    ).foreach(context.registerSerializer(_, VPackScalaSerializers.MAP))
+      Map("" -> "").withDefault(null).getClass, // inner Map.WithDefault
+      Map("" -> "").filterKeys(null).getClass, // inner MapLike.FilteredKeys with DefaultMap
+      Map("" -> "").mapValues(null).getClass, // inner MapLike.MappedValues with DefaultMap
+      ListMap("" -> "").getClass // inner ListMap.Node
+    ).foreach(context.registerSerializer(_, VPackScalaSerializers.MAP_IMMUTABLE))
 
-    context.registerEnclosingSerializer(classOf[Map[Any, Any]], VPackScalaSerializers.MAP)
+    Set[Class[_ <: mutable.Map[_, _]]](
+      classOf[TrieMap[Any, Any]]
+    ).foreach(context.registerSerializer(_, VPackScalaSerializers.MAP_MUTABLE))
+
+    context.registerEnclosingSerializer(classOf[Map[Any, Any]], VPackScalaSerializers.MAP_IMMUTABLE)
+    context.registerEnclosingSerializer(classOf[MapLike[Any, Any, Any]], VPackScalaSerializers.MAP_IMMUTABLE)
+
+    context.registerEnclosingSerializer(classOf[mutable.Map[Any, Any]], VPackScalaSerializers.MAP_MUTABLE)
+    context.registerEnclosingSerializer(classOf[mutable.MapLike[Any, Any, Any]], VPackScalaSerializers.MAP_MUTABLE)
 
     context.registerSerializer(classOf[BigInt], VPackScalaSerializers.BIG_INT)
-    context.registerSerializer(classOf[Option[Any]], VPackScalaSerializers.OPTION)
     context.registerSerializer(classOf[BigDecimal], VPackScalaSerializers.BIG_DECIMAL)
+    context.registerSerializer(classOf[Option[Any]], VPackScalaSerializers.OPTION)
   }
 
 }

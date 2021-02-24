@@ -3,8 +3,10 @@ package com.arangodb.velocypack.module.scala.internal
 import com.arangodb.velocypack.VPackSerializer
 import com.arangodb.velocypack.VPackSerializationContext
 import com.arangodb.velocypack.VPackBuilder
+
 import scala.collection.mutable.ListBuffer
 import scala.jdk.CollectionConverters._
+import scala.collection.mutable
 
 object VPackScalaSerializers {
 
@@ -20,8 +22,13 @@ object VPackScalaSerializers {
     }
   }
 
-  val MAP = new VPackSerializer[Map[Any, Any]] {
+  val MAP_IMMUTABLE = new VPackSerializer[Map[Any, Any]] {
     def serialize(builder: VPackBuilder, attribute: String, value: Map[Any, Any], context: VPackSerializationContext): Unit =
+      context.serialize(builder, attribute, value.asJava)
+  }
+
+  val MAP_MUTABLE = new VPackSerializer[mutable.Map[Any, Any]] {
+    def serialize(builder: VPackBuilder, attribute: String, value: mutable.Map[Any, Any], context: VPackSerializationContext): Unit =
       context.serialize(builder, attribute, value.asJava)
   }
 

@@ -1,11 +1,11 @@
+![ArangoDB-Logo](https://www.arangodb.com/docs/assets/arangodb_logo_2016_inverted.png)
+
 # [DEPRECATED]: `velocypack-module-scala` has been deprecated.
 
 Please consider using [jackson-dataformat-velocypack](https://github.com/arangodb/jackson-dataformat-velocypack#scala)
-instead. For usage in the ArangoDB driver, refer to the
+instead. For usage in the ArangoDB Java driver, refer to the
 official [serialization documentation](https://www.arangodb.com/docs/stable/drivers/java-reference-serialization.html).
 
-
-![ArangoDB-Logo](https://www.arangodb.com/docs/assets/arangodb_logo_2016_inverted.png)
 
 # ArangoDB VelocyPack Java Module Scala
 

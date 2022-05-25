@@ -6,6 +6,7 @@ Please consider using [jackson-dataformat-velocypack](https://github.com/arangod
 instead. For usage in the ArangoDB Java driver, refer to the
 official [serialization documentation](https://www.arangodb.com/docs/stable/drivers/java-reference-serialization.html).
 
+---
 
 # ArangoDB VelocyPack Java Module Scala
 
